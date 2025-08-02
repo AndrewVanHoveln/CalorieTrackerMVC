@@ -1,0 +1,67 @@
+@model List<Calorie_Tracking_App.Models.Food>
+@{
+    ViewData["Title"] = "Tracker";
+}
+
+<h2>Today's Entries</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th style="display:none;">Id</th>
+            <th>Name</th>
+            <th>Carbs (g)</th>
+            <th>Fats (g)</th>
+            <th>Protien (g)</th>
+            <th>Calories (kcal)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0){
+            foreach(var food in Model){
+                <tr>
+                    <td style="display:none;">@food.Id</td>
+                    <td>@food.Name</td>
+                    <td>@food.Carbs</td>
+                    <td>@food.Fats</td>
+                    <td>@food.Protien</td>
+                    <td>@food.Calories</td>
+                    <td>
+                        <button onclick="deleteFood(@food.Id)">Delete</button>
+                    <td>
+                </tr>
+            }
+        }
+        <tr>
+            <form method="post" asp-action="Add">
+                <td><input type="text" name="Name" required /></td>
+                <td><input type="number" name="Carbs" step="0.01" required/></td>
+                <td><input type="number" name="Fats" step="0.01" required/></td>
+                <td><input type="number" name="Protien" step="0.01" required/></td>
+                <td><input type="number" name="Calories" required/></td>
+                <td><input type="submit" value="Add"/></td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        function deleteFood(id){
+            fetch(`/CalorieTracker/Delete/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if(response.ok){
+                    location.reload();
+                } else{
+                    alert('Failed to delete')
+                }
+            }).catch(Error => console.error(error));
+        }
+    </script>
+}
+
+
