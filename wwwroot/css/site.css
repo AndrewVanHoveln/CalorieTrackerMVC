@@ -8,6 +8,14 @@ html {
   }
 }
 
+/* Global background for the entire site */
+body {
+  background-color: #1f242a;  /* light blue, for example */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; /* optional: keeps it fixed when scrolling */
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -28,4 +36,28 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.nav-link:hover {
+  color: #adb5bd !important;
+} 
+
+table {
+  border-collapse: collapse;
+}
+
+th, td{
+  border: 1px solid grey;
+  color: black;
+}
+
+th {
+  background-color: white;
+}
+
+tr:nth-child(even){
+  background-color: lightgray;
+}
+tr:nth-child(odd){
+  background-color: white;
 }

@@ -5,7 +5,7 @@
 
 <h2>Today's Entries</h2>
 
-<table>
+<table id="EntryTable">
     <thead>
         <tr>
             <th style="display:none;">Id</th>
@@ -20,26 +20,25 @@
         @if (Model != null && Model.Count > 0){
             foreach(var food in Model){
                 <tr>
-                    <td style="display:none;">@food.Id</td>
                     <td>@food.Name</td>
                     <td>@food.Carbs</td>
                     <td>@food.Fats</td>
                     <td>@food.Protien</td>
                     <td>@food.Calories</td>
-                    <td>
-                        <button onclick="deleteFood(@food.Id)">Delete</button>
-                    <td>
+                    <td class= "bg-dark" style="border: none; padding-left: 20px; color: white;">
+                        <i class="fa-solid fa-trash-can fa-2x" onclick="deleteFood(@food.Id)" style="cursor: pointer;"></i>
+                    </td>
                 </tr>
             }
         }
         <tr>
             <form method="post" asp-action="Add">
                 <td><input type="text" name="Name" required /></td>
-                <td><input type="number" name="Carbs" step="0.01" required/></td>
-                <td><input type="number" name="Fats" step="0.01" required/></td>
-                <td><input type="number" name="Protien" step="0.01" required/></td>
-                <td><input type="number" name="Calories" required/></td>
-                <td><input type="submit" value="Add"/></td>
+                <td><input type="number" name="Carbs" step="0.01" min="0" required/></td>
+                <td><input type="number" name="Fats" step="0.01" min="0" required/></td>
+                <td><input type="number" name="Protien" step="0.01" min="0" required/></td>
+                <td><input type="number" name="Calories" min="0" required/></td>
+                <td style="border: none; padding-left: 20px;"><input type="submit" value="Add"/></td>
             </form>
         </tr>
     </tbody>

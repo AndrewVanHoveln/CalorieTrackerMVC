@@ -44,6 +44,10 @@ public class CalorieTrackerController : Controller
             _context.Remove(food);
             await _context.SaveChangesAsync();
         }
+        else
+        {
+            _logger.LogInformation($"food with id:{id} not found");
+        }
         
         return RedirectToAction(nameof(Index));
     }
