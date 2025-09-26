@@ -16,9 +16,13 @@ public class CalorieTrackerController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(DateTime? Date = null)
     {
-        var entries = await _context.CalorieEntries.ToListAsync();
+        if (Date == null) Date = DateTime.Today;
+        ViewData["Date"] = Date;
+        var entries = await _context.CalorieEntries.Where(
+            (food) => food.LoggedAt.Date == Date.Value.Date)
+            .ToListAsync();
         return View(entries);
     }
 
@@ -32,7 +36,7 @@ public class CalorieTrackerController : Controller
         }
         await _context.AddAsync(food);
         await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new {Date = food.LoggedAt});
     }
 
     [HttpDelete]
@@ -49,6 +53,6 @@ public class CalorieTrackerController : Controller
             _logger.LogInformation($"food with id:{id} not found");
         }
         
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Index), new {Date = food != null ? food.LoggedAt : DateTime.Today});
     }
 }

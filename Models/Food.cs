@@ -16,6 +16,9 @@ public class Food
 
     [Required]
     public double Calories { get; set; }
+
+    [Required]
+    public DateTime LoggedAt { get; set; }
     
     public string? Name { get; set; }
 }
