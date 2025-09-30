@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Calorie_Tracking_App.Data;
 using Calorie_Tracking_App.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Calorie_Tracking_App.Controllers;
-
+[Authorize]
 public class CalorieTrackerController : Controller
 {
     private readonly ILogger<CalorieTrackerController> _logger;
