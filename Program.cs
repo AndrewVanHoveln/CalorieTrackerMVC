@@ -5,8 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
-Env.Load();
-builder.Configuration.AddEnvironmentVariables();
+
+if (builder.Environment.IsDevelopment())
+{
+    Env.Load();
+    builder.Configuration.AddEnvironmentVariables();
+}
 
 builder.Services.AddAuthentication(options =>
 {
@@ -26,7 +30,6 @@ builder.Services.AddAuthentication(options =>
     options.Scope.Add("openid");
     options.Scope.Add("profile");
     options.Scope.Add("email");
-    
 });
 
 // Add services to the container.
